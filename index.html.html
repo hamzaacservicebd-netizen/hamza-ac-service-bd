@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamza AC Service BD | এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস সেন্টার</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Hind Siliguri & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0284c7;
+            --header-bg: #0f172a;
+            --header-text: #ffffff;
+            --promo-bg: #0369a1;
+            --promo-text: #ffffff;
+            --footer-bg: #0f172a;
+            --footer-text: #ffffff;
+            --page-text: #1e293b;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+            color: var(--page-text);
+            background-color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .theme-primary-bg {
+            background-color: var(--primary-color);
+        }
+        .theme-primary-text {
+            color: var(--primary-color);
+        }
+        .theme-primary-border {
+            border-color: var(--primary-color);
+        }
+        .theme-header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+        .theme-promo-banner {
+            background-color: var(--promo-bg);
+            color: var(--promo-text);
+        }
+        .theme-footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .card-hover {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.14);
+        }
+
+        /* HD Crisp Logo Rendering */
+        .crisp-logo {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        /* Square Logo Style without rounded corners */
+        .square-logo-box {
+            border-radius: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- ==================== 1. TOP HEADER & 50-TAP SECRET LOGO TRIGGER ==================== -->
+    <header class="theme-header shadow-lg sticky top-0 z-40 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-2">
+            <!-- Left Spacer for desktop centering -->
+            <div class="w-16 hidden sm:block"></div>
+
+            <!-- Center Brand Identity: Crisp HD Permanent Logo precisely on the left of company name & slogan (Tap 50 times on logo for Admin) -->
+            <div class="flex items-center justify-center gap-3.5 flex-1 cursor-pointer select-none" onclick="handleSecretLogoTap()" title="ওনার ড্যাশবোর্ডের জন্য লোগোতে ৫০ বার টাচ করুন">
+                <div id="header-logo-container" class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center overflow-hidden square-logo-box shrink-0">
+                    <!-- Permanent HD Uploaded Logo on the Left - Square Shape, Blended -->
+                    <img src="1000005925_3.png" alt="Hamza AC Service BD" class="w-full h-full object-contain crisp-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/0f172a/38bdf8?text=Hamza+AC';">
+                </div>
+                <div class="text-left">
+                    <h1 id="display-company-name" class="text-xl sm:text-3xl font-extrabold tracking-tight leading-tight">
+                        Hamza AC Service BD
+                    </h1>
+                    <p id="display-company-slogan" class="text-xs sm:text-sm text-sky-200 font-medium mt-0.5">
+                        আপনার বিশ্বস্ত এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস সেন্টার
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Cart Button -->
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="openBookingModal()" class="relative p-2.5 rounded-xl bg-white/10 hover:bg-white/20 transition text-white" title="অর্ডার কার্ট দেখুন">
+                    <i class="fa-solid fa-cart-shopping text-base sm:text-lg"></i>
+                    <span id="header-cart-badge" class="hidden absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Owner Active Control Bar (Visible only when unlocked via Admin PIN) -->
+        <div id="owner-control-bar" class="hidden bg-amber-400 text-slate-950 px-4 py-2.5 text-xs sm:text-sm font-bold shadow-inner">
+            <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-check text-slate-900"></i>
+                    <span>অ্যাডমিন মোড (ড্যাশবোর্ড আনলকড)</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="openAdminModal('orders')" class="relative bg-slate-900 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold hover:bg-slate-800 transition flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-clipboard-list text-amber-400"></i>
+                        <span>অর্ডার লিস্ট</span>
+                        <span id="owner-order-count" class="bg-rose-500 text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow">0</span>
+                    </button>
+                    <button onclick="openAdminModal('services')" class="bg-white text-slate-900 px-3 py-2 rounded-xl text-xs hover:bg-slate-100 transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-screwdriver-wrench"></i> সার্ভিস ও সিরিয়াল
+                    </button>
+                    <button onclick="openAdminModal('banner_footer')" class="bg-white text-slate-900 px-3 py-2 rounded-xl text-xs hover:bg-slate-100 transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-palette"></i> লোগো, ব্যানার, ফুটার ও কালার
+                    </button>
+                    <button onclick="logoutAdmin()" class="bg-rose-600 text-white px-3 py-2 rounded-xl text-xs hover:bg-rose-700 transition shadow-sm">
+                        লগআউট
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. ATTRACTIVE PROMO BANNER ==================== -->
+    <section class="max-w-6xl mx-auto w-full px-4 pt-4">
+        <div id="promo-banner-box" class="theme-promo-banner rounded-3xl p-5 sm:p-7 shadow-lg relative overflow-hidden transition-colors duration-300 bg-cover bg-center">
+            <div id="promo-banner-overlay" class="absolute inset-0 bg-slate-950/50 backdrop-blur-[2px] hidden"></div>
+            
+            <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/10 pointer-events-none"></div>
+            <div class="absolute -left-6 -bottom-10 w-28 h-28 rounded-full bg-white/10 pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <div class="space-y-1.5 max-w-2xl">
+                    <span id="display-promo-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-bold tracking-wide text-white">
+                        <i class="fa-solid fa-award text-amber-300"></i> ১৫ দিনের সার্ভিস ওয়ারেন্টি ও দ্রুত হোম সার্ভিস
+                    </span>
+                    <h2 id="display-promo-headline" class="text-xl sm:text-2xl md:text-3xl font-extrabold leading-snug text-white">
+                        ঘরে বসেই সেরা মানের এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস নিন — দ্রুত, দক্ষ টেকনিশিয়ান ও সাশ্রয়ী মূল্যে!
+                    </h2>
+                    <p id="display-promo-subtext" class="text-xs sm:text-sm text-sky-100">
+                        অভিজ্ঞ ইঞ্জিনিয়ার দ্বারা ১০০% গ্যারান্টি সহকারে এসি, ফ্রিজ, মাইক্রোওভেন ও ওয়াশিং মেশিন সার্ভিসিং।
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="#services-section" class="inline-flex items-center gap-2 bg-white text-slate-900 hover:bg-slate-100 font-extrabold px-5 py-3 rounded-2xl text-sm shadow-md transition active:scale-95">
+                        <span>সার্ভিস দেখুন</span>
+                        <i class="fa-solid fa-arrow-down theme-primary-text"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. SQUARE IMAGE CATEGORY GRID (SMOOTH SCROLL TO SERVICES) ==================== -->
+    <section class="max-w-6xl mx-auto w-full px-4 pt-5 pb-2">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-table-cells-large theme-primary-text"></i> সার্ভিস ক্যাটাগরি নির্বাচন করুন
+            </h2>
+            <button onclick="selectCategory('ALL')" class="text-xs font-bold theme-primary-text hover:underline">
+                সবগুলো দেখুন
+            </button>
+        </div>
+
+        <div id="square-category-grid" class="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-3.5">
+            <!-- Populated dynamically -->
+        </div>
+    </section>
+
+    <!-- ==================== 4. CALL & WHATSAPP BUTTONS + SEARCH + CATEGORY STRIP ==================== -->
+    <section class="max-w-6xl mx-auto w-full px-4 pt-3 pb-2 space-y-3.5">
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <a id="quick-call-btn" href="tel:01955255725" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold shadow-md shadow-blue-600/20 transition text-sm sm:text-base">
+                <i class="fa-solid fa-phone-volume animate-pulse text-base sm:text-lg"></i>
+                <span>সরাসরি কল করুন</span>
+            </a>
+            <a id="quick-whatsapp-btn" href="https://wa.me/8801955255725" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold shadow-md shadow-emerald-600/20 transition text-sm sm:text-base">
+                <i class="fa-brands fa-whatsapp text-lg sm:text-xl"></i>
+                <span>WhatsApp মেসেজ</span>
+            </a>
+        </div>
+
+        <div class="relative">
+            <div class="flex items-center bg-white rounded-2xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-sky-500 focus-within:border-sky-500 overflow-hidden">
+                <span class="pl-4 text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input 
+                    type="text" 
+                    id="service-search-input" 
+                    oninput="handleSearch(this.value)"
+                    placeholder="সার্ভিস খুঁজুন... (যেমন: Jet Wash, Gas Charge, Fridge)" 
+                    class="w-full py-3.5 px-3 text-sm sm:text-base outline-none bg-transparent text-slate-800"
+                >
+                <button id="clear-search-btn" onclick="clearSearch()" class="hidden pr-3 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+                <button onclick="document.getElementById('service-search-input').focus()" class="theme-primary-bg text-white px-5 py-3.5 font-semibold text-sm hover:opacity-95 transition">
+                    সার্চ
+                </button>
+            </div>
+        </div>
+
+        <div id="horizontal-category-strip" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+            <!-- Populated dynamically -->
+        </div>
+    </section>
+
+    <!-- ==================== 5. SERVICES LIST SECTION ==================== -->
+    <main id="services-section" class="max-w-6xl mx-auto w-full px-4 py-4 flex-1 scroll-mt-20">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+                <h2 id="current-category-title" class="text-xl sm:text-2xl font-bold text-slate-800">সকল সার্ভিস সমূহ</h2>
+                <p id="service-count-subtitle" class="text-xs sm:text-sm text-slate-500">আপনার প্রয়োজনীয় সার্ভিসটি বেছে নিয়ে বুক করুন</p>
+            </div>
+            <div id="owner-quick-actions" class="hidden flex flex-wrap items-center gap-2">
+                <button onclick="openAdminModal('orders')" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-list text-amber-400"></i>
+                    <span>অর্ডার লিস্ট</span>
+                    <span id="quick-order-count" class="bg-rose-500 text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+                </button>
+                <button id="owner-quick-add-service" onclick="openAdminModal('services')" class="theme-primary-bg text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow hover:opacity-90 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus"></i> সার্ভিস যোগ / এডিট
+                </button>
+            </div>
+        </div>
+
+        <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Service Cards rendered here -->
+        </div>
+
+        <div id="empty-services-state" class="hidden text-center py-14 bg-white rounded-3xl border border-slate-200 my-4">
+            <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-700">কোনো সার্ভিস পাওয়া যায়নি</h3>
+            <p class="text-sm text-slate-500 mt-1">অন্য নাম দিয়ে সার্চ করুন অথবা সব সার্ভিস দেখুন</p>
+            <button onclick="resetFilters()" class="mt-4 theme-primary-bg text-white px-5 py-2 rounded-xl text-sm font-semibold">
+                সব সার্ভিস দেখুন
+            </button>
+        </div>
+    </main>
+
+    <!-- Floating Bottom Cart Summary Bar -->
+    <div id="floating-cart-bar" class="hidden fixed bottom-4 left-4 right-4 z-30 max-w-2xl mx-auto">
+        <div class="bg-slate-900 text-white rounded-2xl p-3.5 shadow-2xl border border-slate-700 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl theme-primary-bg flex items-center justify-center font-bold text-lg shadow">
+                    <span id="floating-cart-count">0</span>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-300">নির্বাচিত সার্ভিস</p>
+                    <p class="text-base sm:text-lg font-bold">সর্বমোট: ৳<span id="floating-cart-total">0</span></p>
+                </div>
+            </div>
+            <button onclick="openBookingModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-5 py-3 rounded-xl text-sm sm:text-base transition flex items-center gap-2 shadow-lg">
+                <span>অর্ডার কনফার্ম করুন</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== 6. STRUCTURED FOOTER ==================== -->
+    <footer class="theme-footer mt-12 pt-10 pb-24 sm:pb-12 border-t border-white/10">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col items-center text-center space-y-3">
+            <!-- 1. Top Footer Logo precisely centered above Company Name -->
+            <div class="flex flex-col items-center justify-center space-y-2 mb-1">
+                <div id="footer-logo-container" class="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center overflow-hidden square-logo-box shrink-0">
+                    <img src="1000005925_3.png" alt="Hamza AC Service BD" class="w-full h-full object-contain crisp-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/0f172a/38bdf8?text=Hamza+AC';">
+                </div>
+                <div class="text-center">
+                    <h3 id="footer-company-name" class="text-xl sm:text-2xl font-extrabold tracking-tight">Hamza AC Service BD</h3>
+                    <p id="footer-company-slogan" class="text-xs sm:text-sm opacity-90 mt-0.5">
+                        আপনার বিশ্বস্ত এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস সেন্টার
+                    </p>
+                </div>
+            </div>
+
+            <!-- 15 Days Warranty Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-bold text-sm shadow">
+                <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                <span id="footer-warranty-text">১৫ দিনের সার্ভিস ওয়ারেন্টি</span>
+            </div>
+
+            <!-- 4. Service Coverage Areas -->
+            <div class="bg-white/5 p-3.5 rounded-2xl border border-white/10 max-w-xl text-xs sm:text-sm opacity-95">
+                <p class="font-bold text-sky-300 mb-0.5"><i class="fa-solid fa-map-location-dot mr-1"></i> সার্ভিস এরিয়া সমূহ:</p>
+                <p id="footer-service-areas">সমগ্র ঢাকা শহর — মোহাম্মদপুর, ধানমন্ডি, মিরপুর, উত্তরা, গুলশান, বনানী, বাড্ডা, রামপুরা, খিলগাঁও ও যাত্রাবাড়ী।</p>
+            </div>
+
+            <!-- 5. Office Address & Contact -->
+            <div class="space-y-2 text-sm sm:text-base pt-1">
+                <div>
+                    <a id="footer-phone-link" href="tel:01955255725" class="inline-flex items-center gap-2 hover:text-sky-300 transition font-semibold">
+                        <i class="fa-solid fa-phone text-sky-400"></i>
+                        <span id="footer-phone-text">01955255725</span>
+                    </a>
+                </div>
+                <div>
+                    <a id="footer-email-link" href="mailto:hamza.ac.service.bd@gmail.com" class="inline-flex items-center gap-2 hover:text-sky-300 transition">
+                        <i class="fa-solid fa-envelope text-sky-400"></i>
+                        <span id="footer-email-text">hamza.ac.service.bd@gmail.com</span>
+                    </a>
+                </div>
+                <div class="flex items-center justify-center gap-2 opacity-90">
+                    <i class="fa-solid fa-location-dot text-rose-400"></i>
+                    <span id="footer-address-text">মোহাম্মদপুর, ঢাকা-১২০৭, বাংলাদেশ</span>
+                </div>
+            </div>
+
+            <!-- 6. Social Media Buttons in One Row: Facebook, Instagram, YouTube -->
+            <div class="flex items-center justify-center gap-4 pt-2">
+                <a id="footer-fb-link" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center text-lg shadow-md transition transform hover:scale-110">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a id="footer-ig-link" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 hover:opacity-90 text-white flex items-center justify-center text-lg shadow-md transition transform hover:scale-110">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a id="footer-yt-link" href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-11 h-11 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-lg shadow-md transition transform hover:scale-110">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/10 w-full text-xs opacity-60">
+                © <span id="copyright-year">2026</span> <span id="footer-copy-name">Hamza AC Service BD</span>. সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL 1: SERVICE BOOKING & ORDER FORM ==================== -->
+    <div id="booking-modal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col text-slate-800">
+            <div class="theme-primary-bg text-white px-5 py-4 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-calendar-check text-xl"></i>
+                    <h3 class="text-lg font-bold">সার্ভিস বুকিং ও অর্ডার ফরম</h3>
+                </div>
+                <button onclick="closeBookingModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 overflow-y-auto space-y-4 flex-1">
+                <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-list-check theme-primary-text"></i> নির্বাচিত সার্ভিস (বাড়ান বা কমান)
+                        </h4>
+                        <button onclick="closeBookingModal()" class="text-xs font-semibold theme-primary-text hover:underline">
+                            + আরও সার্ভিস যোগ করুন
+                        </button>
+                    </div>
+
+                    <div id="booking-cart-items" class="space-y-2.5">
+                        <!-- Dynamic Cart Items -->
+                    </div>
+
+                    <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between">
+                        <span class="font-bold text-slate-700">সর্বমোট বিল:</span>
+                        <span class="text-xl font-extrabold theme-primary-text">৳<span id="booking-grand-total">0</span></span>
+                    </div>
+                </div>
+
+                <form id="booking-form" onsubmit="submitCustomerOrder(event)" class="space-y-3.5">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">আপনার নাম <span class="text-rose-500">*</span></label>
+                        <input type="text" id="cust-name" required placeholder="আপনার পূর্ণ নাম লিখুন" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">আপনার ফোন নাম্বার <span class="text-rose-500">*</span></label>
+                        <input type="tel" id="cust-phone" required placeholder="01XXXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">আপনার সম্পূর্ণ ঠিকানা <span class="text-rose-500">*</span></label>
+                        <textarea id="cust-address" rows="2" required placeholder="বাসা নং, রোড নং, এলাকা (যেমন: মোহাম্মদপুর, ঢাকা)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">সিডিউল তারিখ <span class="text-rose-500">*</span></label>
+                            <input type="date" id="cust-date" required class="w-full px-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">সিডিউল টাইম <span class="text-rose-500">*</span></label>
+                            <!-- English Schedule Time Slots -->
+                            <select id="cust-time" required class="w-full px-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm bg-white">
+                                <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                                <option value="10:00 AM - 11:00 AM" selected>10:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                                <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                                <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                                <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                                <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                                <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
+                                <option value="6:00 PM - 7:00 PM">6:00 PM - 7:00 PM</option>
+                                <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
+                                <option value="8:00 PM - 9:00 PM">8:00 PM - 9:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-sky-50/70 p-3.5 rounded-2xl border border-sky-200/80 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-comment-medical text-sky-600"></i> এসির সমস্যা সম্পর্কে লিখুন বা ছবি দিন
+                            </span>
+                            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-200 text-slate-600">ঐচ্ছিক</span>
+                        </div>
+                        <div>
+                            <textarea id="cust-problem-note" rows="2" placeholder="এসির সমস্যা সম্পর্কে কিছু লিখতে চাইলে এখানে লিখুন... (ঐচ্ছিক)" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 outline-none text-xs sm:text-sm bg-white"></textarea>
+                        </div>
+                        <div class="flex items-center justify-between gap-3">
+                            <label class="cursor-pointer flex-1 bg-white hover:bg-slate-50 border border-dashed border-sky-400 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-sky-700 flex items-center justify-center gap-2 transition">
+                                <i class="fa-solid fa-camera text-sm"></i>
+                                <span id="cust-photo-label">সমস্যার ছবি যুক্ত করুন (ঐচ্ছিক)</span>
+                                <input type="file" id="cust-problem-photo-input" accept="image/*" onchange="handleCustomerProblemPhoto(event)" class="hidden">
+                            </label>
+                            <div id="cust-photo-preview-wrap" class="hidden relative shrink-0">
+                                <img id="cust-photo-preview" src="" alt="Problem Photo" class="w-12 h-12 object-cover rounded-xl border border-slate-300">
+                                <button type="button" onclick="clearCustomerProblemPhoto()" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center shadow">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-order-btn" class="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>সার্ভিস বুকিং কনফার্ম করুন</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 2: ORDER CONFIRMATION RECEIPT ==================== -->
+    <div id="receipt-modal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 text-center shadow-2xl space-y-4 text-slate-800">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800">আপনার বুকিং সফলভাবে সম্পন্ন হয়েছে!</h3>
+            <p class="text-sm text-slate-600">আমাদের টেকনিশিয়ান শীঘ্রই আপনার সাথে যোগাযোগ করবেন। (১৫ দিনের সার্ভিস ওয়ারেন্টি প্রযোজ্য)</p>
+            
+            <div id="receipt-summary-box" class="bg-slate-50 rounded-2xl p-4 text-left text-xs sm:text-sm space-y-1.5 border border-slate-200">
+                <!-- Receipt details injected here -->
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
+                <a id="receipt-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp-এ পাঠান
+                </a>
+                <button onclick="closeReceiptModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-sm transition">
+                    ঠিক আছে
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 3: 50-TAP SECRET USERNAME & PIN LOGIN MODAL ==================== -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center text-slate-800">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-lock theme-primary-text"></i> ওনার ড্যাশবোর্ড লগইন
+                </h3>
+                <button onclick="closeAdminLoginModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-500">আপনার অ্যাডমিন ইউজারনেম এবং গোপন পিন দিয়ে ড্যাশবোর্ডে প্রবেশ করুন</p>
+
+            <form onsubmit="verifyOwnerCredentials(event)" class="space-y-3 text-left">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">অ্যাডমিন ইউজারনেম</label>
+                    <input type="text" id="admin-user-input" required placeholder="admin" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">গোপন পিন</label>
+                    <input type="password" id="admin-pin-input" required maxlength="12" placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-extrabold outline-none focus:border-sky-500">
+                </div>
+
+                <p id="admin-auth-error" class="hidden text-xs text-rose-600 font-semibold bg-rose-50 p-2 rounded-xl border border-rose-200 text-center"></p>
+
+                <button type="submit" class="w-full py-3.5 px-4 rounded-2xl theme-primary-bg text-white font-bold text-sm shadow-lg hover:opacity-95 transition mt-1">
+                    ড্যাশবোর্ড আনলক করুন
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 4: FULL OWNER ADMIN DASHBOARD ==================== -->
+    <div id="admin-dashboard-modal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4">
+        <div class="bg-white w-full max-w-5xl h-full sm:h-[92vh] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden text-slate-800">
+            
+            <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-sliders text-amber-400 text-xl"></i>
+                    <div>
+                        <h3 class="font-bold text-base sm:text-lg">Hamza AC Service BD — ওনার অ্যাডমিন ড্যাশবোর্ড</h3>
+                        <p class="text-[11px] text-slate-400">সব লেখা, ছবি, ব্যানার, ফুটার, কালার, ইউজারনেম ও পিন এখান থেকে পরিবর্তন করুন</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="flex border-b border-slate-200 bg-slate-50 px-3 pt-2 gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+                <button onclick="switchAdminTab('orders')" id="tab-btn-orders" class="admin-tab-btn px-4 py-2.5 text-xs sm:text-sm font-extrabold rounded-t-xl border-b-2 border-sky-600 text-sky-700 bg-white whitespace-nowrap flex items-center gap-1.5">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>অর্ডার লিস্ট</span>
+                    <span id="tab-order-badge" class="bg-rose-500 text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchAdminTab('services')" id="tab-btn-services" class="admin-tab-btn px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 whitespace-nowrap">
+                    <i class="fa-solid fa-screwdriver-wrench mr-1"></i> সার্ভিস, ছবি ও সিরিয়াল
+                </button>
+                <button onclick="switchAdminTab('categories')" id="tab-btn-categories" class="admin-tab-btn px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 whitespace-nowrap">
+                    <i class="fa-solid fa-images mr-1"></i> ক্যাটাগরি ও ছবি
+                </button>
+                <button onclick="switchAdminTab('banner_footer')" id="tab-btn-banner_footer" class="admin-tab-btn px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 whitespace-nowrap">
+                    <i class="fa-solid fa-palette mr-1"></i> লোগো, ব্যানার, ফুটার ও কালার
+                </button>
+                <button onclick="switchAdminTab('security')" id="tab-btn-security" class="admin-tab-btn px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 whitespace-nowrap">
+                    <i class="fa-solid fa-key mr-1"></i> ইউজার ও পিন পরিবর্তন
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-50/70">
+                
+                <!-- TAB 1: ORDERS -->
+                <div id="admin-tab-orders" class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-base">সকল কাস্টমারের বুকিং তালিকা</h4>
+                        <span class="text-xs text-slate-500">নতুন অর্ডার সবার উপরে দেখাবে</span>
+                    </div>
+                    <div id="admin-orders-list" class="space-y-3">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 2: SERVICES CRUD -->
+                <div id="admin-tab-services" class="hidden space-y-5">
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 id="service-form-title" class="font-bold text-slate-800 mb-3 text-sm sm:text-base flex items-center gap-2">
+                            <i class="fa-solid fa-circle-plus theme-primary-text"></i> নতুন সার্ভিস যোগ বা এডিট করুন
+                        </h4>
+                        <form id="admin-service-form" onsubmit="saveServiceItem(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                            <input type="hidden" id="edit-service-id">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">সার্ভিসের নাম *</label>
+                                <input type="text" id="srv-name" required placeholder="যেমন: Split AC Jet Wash" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ক্যাটাগরি *</label>
+                                <select id="srv-category" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                    <!-- Populated -->
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">সার্ভিস সম্পর্কে এক লাইনের বিবরণ *</label>
+                                <input type="text" id="srv-desc" required maxlength="110" placeholder="হাই-প্রেসার জেট পাম্প দিয়ে ইনডোর ও আউটডোর কয়েল পরিষ্কার।" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">পুরাতন মূল্য (৳) *</label>
+                                <input type="number" id="srv-old-price" required placeholder="1500" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">নতুন অফার মূল্য (৳) *</label>
+                                <input type="number" id="srv-new-price" required placeholder="1000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+
+                            <div class="sm:col-span-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                                <label class="block text-xs font-bold text-slate-700">সার্ভিসের ছবি আপলোড করুন (HD Quality)</label>
+                                <div class="flex flex-col sm:flex-row items-center gap-3">
+                                    <label class="cursor-pointer bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shrink-0 transition">
+                                        <i class="fa-solid fa-upload"></i> ছবি সিলেক্ট করুন
+                                        <input type="file" accept="image/*" onchange="handleImageFileUpload(event, 900, 'srv-image', 'srv-image-preview')" class="hidden">
+                                    </label>
+                                    <input type="text" id="srv-image" oninput="updatePreviewImg('srv-image-preview', this.value)" placeholder="অথবা ছবির URL দিন..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white">
+                                    <img id="srv-image-preview" src="https://placehold.co/100x80/e2e8f0/64748b?text=Preview" alt="Preview" class="w-16 h-12 object-cover rounded-lg border border-slate-300 shrink-0 bg-white">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2 flex gap-2">
+                                <button type="submit" class="theme-primary-bg text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow hover:opacity-95 transition">
+                                    <i class="fa-solid fa-check mr-1"></i> সার্ভিস সেভ করুন
+                                </button>
+                                <button type="button" onclick="resetServiceForm()" class="bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold">
+                                    ক্লিয়ার
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <h4 class="font-bold text-slate-800 text-sm">বর্তমান সার্ভিস সমূহ (⬆️ আপ ও ⬇️ ডাউন বাটনে সিরিয়াল পরিবর্তন করুন)</h4>
+                        <div id="admin-services-list" class="space-y-2.5">
+                            <!-- Populated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CATEGORIES -->
+                <div id="admin-tab-categories" class="hidden space-y-5">
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 id="cat-form-title" class="font-bold text-slate-800 mb-3 text-sm sm:text-base">ক্যাটাগরি যোগ বা ছবি পরিবর্তন করুন</h4>
+                        <form onsubmit="saveCategoryItem(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                            <input type="hidden" id="edit-cat-id">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ক্যাটাগরির নাম *</label>
+                                <input type="text" id="cat-name" required placeholder="যেমন: স্প্লিট টাইপ এসি" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ফলব্যাক আইকন</label>
+                                <select id="cat-icon" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                    <option value="fa-snowflake">❄️ AC / কুলিং</option>
+                                    <option value="fa-wind">🌬️ VRF সিস্টেম</option>
+                                    <option value="fa-icicles">🧊 ফ্রিজ</option>
+                                    <option value="fa-fire-burner">♨️ মাইক্রোওভেন</option>
+                                    <option value="fa-soap">🧺 ওয়াশিং মেশিন</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                                <label class="block text-xs font-bold text-slate-700">ক্যাটাগরির ছবি আপলোড করুন (HD Square)</label>
+                                <div class="flex flex-col sm:flex-row items-center gap-3">
+                                    <label class="cursor-pointer bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shrink-0 transition">
+                                        <i class="fa-solid fa-camera"></i> ছবি আপলোড করুন
+                                        <input type="file" accept="image/*" onchange="handleImageFileUpload(event, 800, 'cat-image', 'cat-image-preview')" class="hidden">
+                                    </label>
+                                    <input type="text" id="cat-image" oninput="updatePreviewImg('cat-image-preview', this.value)" placeholder="অথবা ছবির URL দিন..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white">
+                                    <img id="cat-image-preview" src="https://placehold.co/100x100/e2e8f0/64748b?text=Category" alt="Preview" class="w-12 h-12 object-cover rounded-xl border border-slate-300 shrink-0 bg-white">
+                                </div>
+                            </div>
+                            <div class="sm:col-span-2 flex gap-2">
+                                <button type="submit" class="theme-primary-bg text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow">
+                                    ক্যাটাগরি সেভ করুন
+                                </button>
+                                <button type="button" onclick="resetCategoryForm()" class="bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold">
+                                    ক্লিয়ার
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="admin-categories-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        <!-- Populated -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: LOGO, BANNER, FOOTER & THEME COLORS -->
+                <div id="admin-tab-banner_footer" class="hidden">
+                    <form onsubmit="saveCompanySettings(event)" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                        <h4 class="font-bold text-slate-800 text-base border-b pb-2">কোম্পানির লোগো, ব্যানার, ফুটার ও কালার কাস্টমাইজেশন</h4>
+                        
+                        <!-- Logo Upload Box -->
+                        <div class="bg-sky-50/70 p-4 rounded-2xl border border-sky-200 space-y-2.5">
+                            <label class="block text-sm font-bold text-slate-800"><i class="fa-solid fa-image text-sky-600 mr-1"></i> কোম্পানির লোগো ছবি আপলোড করুন (HD PNG/JPG)</label>
+                            <div class="flex flex-col sm:flex-row items-center gap-3">
+                                <label class="cursor-pointer bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 rounded-xl text-xs font-bold inline-flex items-center gap-2 shrink-0 transition">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> লোগো ছবি সিলেক্ট করুন
+                                    <input type="file" accept="image/*" onchange="handleImageFileUpload(event, 800, 'set-logo-url', 'set-logo-preview')" class="hidden">
+                                </label>
+                                <input type="text" id="set-logo-url" oninput="updatePreviewImg('set-logo-preview', this.value)" placeholder="অথবা লোগো ছবির লিংক দিন..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs bg-white">
+                                <img id="set-logo-preview" src="1000005925.png" alt="Logo Preview" class="w-14 h-14 object-contain rounded-2xl border-2 border-white shadow shrink-0 bg-slate-900">
+                            </div>
+                        </div>
+
+                        <!-- Promo Banner Image & Text -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                            <h5 class="text-xs font-bold text-slate-700 uppercase tracking-wider">প্রোমো ব্যানার ছবি ও লেখা কাস্টমাইজেশন</h5>
+                            <div class="flex flex-col sm:flex-row items-center gap-3">
+                                <label class="cursor-pointer bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shrink-0 transition">
+                                    <i class="fa-solid fa-image"></i> ব্যানার ব্যাকগ্রাউন্ড ছবি আপলোড
+                                    <input type="file" accept="image/*" onchange="handleImageFileUpload(event, 1400, 'set-promo-image', 'set-promo-img-preview')" class="hidden">
+                                </label>
+                                <input type="text" id="set-promo-image" oninput="updatePreviewImg('set-promo-img-preview', this.value)" placeholder="বা ব্যানার ছবির URL দিন (খালি রাখলে শুধু কালার দেখাবে)..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white">
+                                <img id="set-promo-img-preview" src="https://placehold.co/120x60/0369a1/ffffff?text=Banner" alt="Preview" class="w-20 h-12 object-cover rounded-lg border border-slate-300 shrink-0">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">ব্যানার ছোট ব্যাজ টেক্সট</label>
+                                    <input type="text" id="set-promo-badge" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">ব্যানার হেডলাইন</label>
+                                    <input type="text" id="set-promo-headline" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ব্যানার সাব-টাইটেল বিবরণ</label>
+                                <input type="text" id="set-promo-subtext" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                            </div>
+                        </div>
+
+                        <!-- Company & Footer Customization -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">কোম্পানির নাম</label>
+                                <input type="text" id="set-company-name" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ওয়ারেন্টি ব্যাজ টেক্সট</label>
+                                <input type="text" id="set-warranty-text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">কোম্পানির স্লোগান</label>
+                                <input type="text" id="set-company-slogan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">সার্ভিস এরিয়া সমূহ (ফুটার)</label>
+                                <input type="text" id="set-service-areas" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Contact & Socials -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ফোন নাম্বার</label>
+                                <input type="text" id="set-phone" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">জিমেইল</label>
+                                <input type="email" id="set-email" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">অফিস ঠিকানা</label>
+                                <input type="text" id="set-address" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-brands fa-facebook text-blue-600"></i> Facebook লিংক</label>
+                                <input type="url" id="set-fb" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-brands fa-instagram text-pink-600"></i> Instagram লিংক</label>
+                                <input type="url" id="set-ig" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-brands fa-youtube text-red-600"></i> YouTube লিংক</label>
+                                <input type="url" id="set-yt" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Theme Colors -->
+                        <div class="pt-2 border-t">
+                            <h5 class="text-sm font-bold text-slate-700 mb-3">থিম এবং ব্যানার কালার</h5>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div class="bg-slate-50 p-2.5 rounded-xl border">
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">মেইন থিম কালার</label>
+                                    <input type="color" id="set-primary-color" class="w-full h-8 rounded cursor-pointer">
+                                </div>
+                                <div class="bg-slate-50 p-2.5 rounded-xl border">
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">হেডার ব্যাকগ্রাউন্ড</label>
+                                    <input type="color" id="set-header-bg" class="w-full h-8 rounded cursor-pointer">
+                                </div>
+                                <div class="bg-slate-50 p-2.5 rounded-xl border">
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">প্রোমো ব্যানার কালার</label>
+                                    <input type="color" id="set-promo-bg" class="w-full h-8 rounded cursor-pointer">
+                                </div>
+                                <div class="bg-slate-50 p-2.5 rounded-xl border">
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">ফুটার ব্যাকগ্রাউন্ড</label>
+                                    <input type="color" id="set-footer-bg" class="w-full h-8 rounded cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg transition">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> সকল পরিবর্তন সেভ করুন
+                        </button>
+                    </form>
+                </div>
+
+                <!-- TAB 5: CHANGE USERNAME & PIN -->
+                <div id="admin-tab-security" class="hidden max-w-md mx-auto">
+                    <form onsubmit="changeOwnerCredentialsSubmit(event)" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center gap-2.5 border-b pb-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-base">ইউজারনেম ও পিন পরিবর্তন করুন</h4>
+                                <p class="text-xs text-slate-500">আপনার পছন্দমতো নতুন ইউজারনেম ও গোপন পিন সেট করুন</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">নতুন ইউজারনেম</label>
+                            <input type="text" id="new-user-input" required placeholder="যেমন: admin বা hamza" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">বর্তমান পিন</label>
+                            <input type="password" id="old-pin-input" required placeholder="বর্তমান পিন লিখুন" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-bold">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">নতুন পিন</label>
+                            <input type="password" id="new-pin-input" required minlength="4" maxlength="12" placeholder="নতুন পিন লিখুন" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-bold">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">নতুন পিন পুনরায় লিখুন</label>
+                            <input type="password" id="confirm-pin-input" required minlength="4" maxlength="12" placeholder="নতুন পিন নিশ্চিত করুন" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-bold">
+                        </div>
+
+                        <button type="submit" class="w-full py-3 rounded-xl theme-primary-bg text-white font-bold text-sm shadow-lg hover:opacity-95 transition">
+                            নতুন ইউজার ও পিন সেভ করুন
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast-notification" class="hidden fixed top-20 right-4 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 text-sm font-medium flex items-center gap-2.5 transition-all">
+        <i class="fa-solid fa-circle-info text-sky-400"></i>
+        <span id="toast-message">মেসেজ</span>
+    </div>
+
+    <!-- ==================== SCRIPT WITH YOUR FIREBASE CONFIG ==================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Your exact Firebase Configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBmV1HOb7mkenuFtNlADKmWcX8YROgfocc",
+          authDomain: "hamza-ac-service-bd.firebaseapp.com",
+          projectId: "hamza-ac-service-bd",
+          storageBucket: "hamza-ac-service-bd.firebasestorage.app",
+          messagingSenderId: "628349400173",
+          appId: "1:628349400173:web:99f9f9043a4591e36a3b64",
+          measurementId: "G-LX729XDV39"
+        };
+
+        const DEFAULT_SETTINGS = {
+            companyName: "Hamza AC Service BD",
+            warrantyText: "১৫ দিনের সার্ভিস ওয়ারেন্টি",
+            companySlogan: "আপনার বিশ্বস্ত এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস সেন্টার",
+            serviceAreas: "সমগ্র ঢাকা শহর — মোহাম্মদপুর, ধানমন্ডি, মিরপুর, উত্তরা, গুলশান, বনানী, বাড্ডা, রামপুরা, খিলগাঁও ও যাত্রাবাড়ী।",
+            promoBadge: "১৫ দিনের সার্ভিস ওয়ারেন্টি ও দ্রুত হোম সার্ভিস",
+            promoHeadline: "ঘরে বসেই সেরা মানের এসি ও হোম অ্যাপ্লায়েন্স সার্ভিস নিন — দ্রুত, দক্ষ টেকনিশিয়ান ও সাশ্রয়ী মূল্যে!",
+            promoSubtext: "অভিজ্ঞ ইঞ্জিনিয়ার দ্বারা ১০০% গ্যারান্টি সহকারে এসি, ফ্রিজ, মাইক্রোওভেন ও ওয়াশিং মেশিন সার্ভিসিং।",
+            promoImage: "",
+            logoUrl: "1000005925_3.png",
+            phone: "01955255725",
+            email: "hamza.ac.service.bd@gmail.com",
+            address: "মোহাম্মদপুর, ঢাকা-১২০৭, বাংলাদেশ",
+            facebook: "https://facebook.com",
+            instagram: "https://instagram.com",
+            youtube: "https://youtube.com",
+            primaryColor: "#0284c7",
+            headerBg: "#0f172a",
+            promoBg: "#0369a1",
+            promoText: "#ffffff",
+            footerBg: "#0f172a",
+            footerText: "#ffffff",
+            pageText: "#1e293b",
+            adminUser: "admin",
+            adminPin: "1234"
+        };
+
+        const DEFAULT_CATEGORIES = [
+            { id: "cat_split_ac", name: "স্প্লিট টাইপ এসি", icon: "fa-snowflake", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=500&q=80" },
+            { id: "cat_vrf_ac", name: "VRF সিস্টেম এসি", icon: "fa-wind", image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=500&q=80" },
+            { id: "cat_fridge", name: "ফ্রিজ", icon: "fa-icicles", image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=500&q=80" },
+            { id: "cat_microwave", name: "মাইক্রোওভেন", icon: "fa-fire-burner", image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=500&q=80" },
+            { id: "cat_washing", name: "ওয়াশিং মেশিন", icon: "fa-soap", image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        const DEFAULT_SERVICES = [
+            { id: "srv_1", orderIndex: 1, name: "Split AC Checkup Service", description: "সম্পূর্ণ ইনডোর ও আউটডোর কুলিং, গ্যাস প্রেসার এবং ইলেকট্রিক্যাল চেকআপ।", category: "স্প্লিট টাইপ এসি", oldPrice: 800, newPrice: 500, image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_2", orderIndex: 2, name: "AC Jet Wash", description: "হাই-প্রেসার জেট পাম্প দিয়ে ইনডোর ও আউটডোর কয়েলের সব ময়লা পরিষ্কার।", category: "স্প্লিট টাইপ এসি", oldPrice: 1200, newPrice: 850, image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_3", orderIndex: 3, name: "Split AC Foam Wash", description: "অ্যান্টি-ব্যাকটেরিয়াল ফোম ক্লিনার দিয়ে ডিপ ওয়াশ ও দুর্গন্ধ দূর করা।", category: "স্প্লিট টাইপ এসি", oldPrice: 1600, newPrice: 1200, image: "https://images.unsplash.com/photo-1631545806609-c2b999c8f4c6?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_4", orderIndex: 4, name: "Split AC Master Service", description: "ইনডোর ইউনিট খুলে সম্পূর্ণ ওভারহলিং, ড্রেন লাইন ক্লিন ও ফুল সার্ভিসিং।", category: "স্প্লিট টাইপ এসি", oldPrice: 2200, newPrice: 1650, image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_5", orderIndex: 5, name: "AC Leak Repair", description: "কপার পাইপ বা কয়েলের গ্যাস লিকেজ শনাক্ত করে নিখুঁত ওয়েল্ডিং রিপেয়ার।", category: "স্প্লিট টাইপ এসি", oldPrice: 1800, newPrice: 1300, image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_6", orderIndex: 6, name: "AC Gas Charge", description: "অরিজিনাল R410A, R32 এবং R22 রেফ্রিজারেন্ট গ্যাস রিফিল ও প্রেসার টেস্ট।", category: "স্প্লিট টাইপ এসি", oldPrice: 3500, newPrice: 2600, image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_7", orderIndex: 7, name: "VRF System AC Full Maintenance", description: "অফিস ও কমার্শিয়াল VRF সেন্ট্রাল এসি সিস্টেমের পূর্ণাঙ্গ মেইনটেন্যান্স।", category: "VRF সিস্টেম এসি", oldPrice: 6000, newPrice: 4500, image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_8", orderIndex: 8, name: "Fridge Cooling & Gas Charge", description: "নন-ফ্রস্ট ও ডিপ ফ্রিজের কম্প্রেসার চেকআপ, গ্যাস চার্জ ও কুলিং সমাধান।", category: "ফ্রিজ", oldPrice: 2500, newPrice: 1800, image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_9", orderIndex: 9, name: "Microwave Oven Heating Repair", description: "মাইক্রোওভেন গরম না হওয়া, ম্যাগনেট্রন ও সার্কিট সমস্যার সমাধান।", category: "মাইক্রোওভেন", oldPrice: 1500, newPrice: 1000, image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80" },
+            { id: "srv_10", orderIndex: 10, name: "Washing Machine Drum Wash", description: "ফ্রন্ট ও টপ লোড ওয়াশিং মেশিনের ড্রাম ক্লিনিং ও মোটর সার্ভিস।", category: "ওয়াশিং মেশিন", oldPrice: 1800, newPrice: 1250, image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        let state = {
+            settings: { ...DEFAULT_SETTINGS },
+            categories: [...DEFAULT_CATEGORIES],
+            services: [...DEFAULT_SERVICES],
+            orders: [],
+            cart: [],
+            customerProblemPhoto: "",
+            selectedCategory: "ALL",
+            searchQuery: "",
+            isAdminLoggedIn: false
+        };
+
+        function syncOrderCounters() {
+            const count = state.orders.length;
+            const ownerBadge = document.getElementById('owner-order-count');
+            const quickBadge = document.getElementById('quick-order-count');
+            const tabBadge = document.getElementById('tab-order-badge');
+            if (ownerBadge) ownerBadge.textContent = count;
+            if (quickBadge) quickBadge.textContent = count;
+            if (tabBadge) tabBadge.textContent = count;
+        }
+
+        let logoTapCount = 0;
+        let logoTapResetTimer = null;
+
+        window.handleSecretLogoTap = function() {
+            if (state.isAdminLoggedIn) {
+                openAdminModal('orders');
+                return;
+            }
+            logoTapCount++;
+            clearTimeout(logoTapResetTimer);
+            logoTapResetTimer = setTimeout(() => { logoTapCount = 0; }, 5000);
+
+            if (logoTapCount >= 50) {
+                logoTapCount = 0;
+                document.getElementById('admin-auth-error').classList.add('hidden');
+                document.getElementById('admin-user-input').value = state.settings.adminUser || "admin";
+                document.getElementById('admin-pin-input').value = '';
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+            }
+        };
+
+        window.closeAdminLoginModal = function() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        };
+
+        window.verifyOwnerCredentials = function(e) {
+            e.preventDefault();
+            const enteredUser = document.getElementById('admin-user-input').value.trim();
+            const enteredPin = document.getElementById('admin-pin-input').value.trim();
+            const correctUser = state.settings.adminUser || "admin";
+            const correctPin = state.settings.adminPin || "1234";
+
+            if (enteredUser === correctUser && enteredPin === correctPin) {
+                state.isAdminLoggedIn = true;
+                document.getElementById('owner-control-bar').classList.remove('hidden');
+                document.getElementById('owner-quick-actions').classList.remove('hidden');
+                syncOrderCounters();
+                closeAdminLoginModal();
+                openAdminModal('orders');
+                showToast("ওনার অ্যাডমিন ড্যাশবোর্ড আনলক হয়েছে!");
+            } else {
+                const errEl = document.getElementById('admin-auth-error');
+                errEl.textContent = "ভুল ইউজারনেম অথবা পিন দেওয়া হয়েছে!";
+                errEl.classList.remove('hidden');
+            }
+        };
+
+        window.logoutAdmin = function() {
+            state.isAdminLoggedIn = false;
+            document.getElementById('owner-control-bar').classList.add('hidden');
+            document.getElementById('owner-quick-actions').classList.add('hidden');
+            closeAdminModal();
+            showToast("অ্যাডমিন ড্যাশবোর্ড লগআউট করা হয়েছে");
+        };
+
+        window.changeOwnerCredentialsSubmit = async function(e) {
+            e.preventDefault();
+            const newUser = document.getElementById('new-user-input').value.trim();
+            const oldPin = document.getElementById('old-pin-input').value.trim();
+            const newPin = document.getElementById('new-pin-input').value.trim();
+            const confirmPin = document.getElementById('confirm-pin-input').value.trim();
+            const currentPin = state.settings.adminPin || "1234";
+
+            if (oldPin !== currentPin) {
+                showToast("বর্তমান পিনটি সঠিক নয়!");
+                return;
+            }
+            if (newPin.length < 4) {
+                showToast("নতুন পিন কমপক্ষে ৪ ডিজিটের হতে হবে!");
+                return;
+            }
+            if (newPin !== confirmPin) {
+                showToast("নতুন পিন এবং কনফার্ম পিন মিলছে না!");
+                return;
+            }
+
+            const updatedSettings = { ...state.settings, adminUser: newUser, adminPin: newPin };
+            try {
+                if (db && currentUser) {
+                    await setDoc(doc(db, 'config', 'main_settings'), updatedSettings);
+                } else {
+                    state.settings = updatedSettings;
+                }
+                document.getElementById('new-user-input').value = '';
+                document.getElementById('old-pin-input').value = '';
+                document.getElementById('new-pin-input').value = '';
+                document.getElementById('confirm-pin-input').value = '';
+                showToast("নতুন ইউজারনেম এবং পিন সফলভাবে সেভ হয়েছে!");
+            } catch (err) {
+                showToast("সেভ করতে সমস্যা হয়েছে");
+            }
+        };
+
+        function compressImageFile(file, maxDim, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height && width > maxDim) {
+                        height = Math.round((height * maxDim) / width);
+                        width = maxDim;
+                    } else if (height > maxDim) {
+                        width = Math.round((width * maxDim) / height);
+                        height = maxDim;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const isPng = file.type === 'image/png';
+                    const compressedDataUrl = isPng 
+                        ? canvas.toDataURL('image/png') 
+                        : canvas.toDataURL('image/jpeg', 0.92);
+                    callback(compressedDataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        window.handleImageFileUpload = function(event, maxDim, targetInputId, previewImgId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, maxDim, (dataUrl) => {
+                document.getElementById(targetInputId).value = dataUrl;
+                if (previewImgId) {
+                    document.getElementById(previewImgId).src = dataUrl;
+                }
+                showToast("HD ছবি আপলোড সফল! এখন সেভ বাটনে চাপ দিন।");
+            });
+        };
+
+        window.handleCustomerProblemPhoto = function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, 800, (dataUrl) => {
+                state.customerProblemPhoto = dataUrl;
+                document.getElementById('cust-photo-preview').src = dataUrl;
+                document.getElementById('cust-photo-preview-wrap').classList.remove('hidden');
+                document.getElementById('cust-photo-label').textContent = "ছবি যুক্ত হয়েছে (পরিবর্তন করুন)";
+            });
+        };
+
+        window.clearCustomerProblemPhoto = function() {
+            state.customerProblemPhoto = "";
+            document.getElementById('cust-problem-photo-input').value = "";
+            document.getElementById('cust-photo-preview-wrap').classList.add('hidden');
+            document.getElementById('cust-photo-label').textContent = "সমস্যার ছবি যুক্ত করুন (ঐচ্ছিক)";
+        };
+
+        window.updatePreviewImg = function(previewId, url) {
+            const el = document.getElementById(previewId);
+            if (el && url) el.src = url;
+        };
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        currentUser = user;
+                        setupRealtimeListeners();
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                });
+            } catch (err) {
+                renderAll();
+            }
+        }
+
+        function setupRealtimeListeners() {
+            if (!db || !currentUser) return;
+
+            const settingsRef = doc(db, 'config', 'main_settings');
+            onSnapshot(settingsRef, (snap) => {
+                if (snap.exists()) {
+                    state.settings = { ...DEFAULT_SETTINGS, ...snap.data() };
+                } else {
+                    setDoc(settingsRef, DEFAULT_SETTINGS).catch(console.error);
+                }
+                applySettingsToUI();
+            }, console.error);
+
+            const catRef = collection(db, 'categories');
+            onSnapshot(catRef, (snap) => {
+                if (!snap.empty) {
+                    state.categories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                } else {
+                    DEFAULT_CATEGORIES.forEach(c => {
+                        setDoc(doc(db, 'categories', c.id), { name: c.name, icon: c.icon, image: c.image }).catch(console.error);
+                    });
+                }
+                renderCategories();
+                renderAdminCategories();
+            }, console.error);
+
+            const srvRef = collection(db, 'services');
+            onSnapshot(srvRef, (snap) => {
+                if (!snap.empty) {
+                    const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    list.sort((a, b) => (a.orderIndex ?? 999) - (b.orderIndex ?? 999));
+                    state.services = list;
+                } else {
+                    DEFAULT_SERVICES.forEach(s => {
+                        setDoc(doc(db, 'services', s.id), s).catch(console.error);
+                    });
+                }
+                renderServices();
+                renderAdminServices();
+            }, console.error);
+
+            const ordersRef = collection(db, 'orders');
+            onSnapshot(ordersRef, (snap) => {
+                const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                state.orders = list;
+                syncOrderCounters();
+                if (state.isAdminLoggedIn) renderAdminOrders();
+            }, console.error);
+        }
+
+        function applySettingsToUI() {
+            const s = state.settings;
+            document.documentElement.style.setProperty('--primary-color', s.primaryColor || '#0284c7');
+            document.documentElement.style.setProperty('--header-bg', s.headerBg || '#0f172a');
+            document.documentElement.style.setProperty('--promo-bg', s.promoBg || '#0369a1');
+            document.documentElement.style.setProperty('--promo-text', s.promoText || '#ffffff');
+            document.documentElement.style.setProperty('--footer-bg', s.footerBg || '#0f172a');
+            document.documentElement.style.setProperty('--footer-text', s.footerText || '#ffffff');
+            document.documentElement.style.setProperty('--page-text', s.pageText || '#1e293b');
+
+            document.getElementById('display-company-name').textContent = s.companyName;
+            document.getElementById('display-company-slogan').textContent = s.companySlogan;
+            document.getElementById('footer-company-name').textContent = s.companyName;
+            document.getElementById('footer-copy-name').textContent = s.companyName;
+            document.getElementById('footer-company-slogan').textContent = s.companySlogan;
+            document.getElementById('footer-warranty-text').textContent = s.warrantyText || "১৫ দিনের সার্ভিস ওয়ারেন্টি";
+            document.getElementById('footer-service-areas').textContent = s.serviceAreas || DEFAULT_SETTINGS.serviceAreas;
+
+            document.getElementById('display-promo-badge').innerHTML = `<i class="fa-solid fa-award text-amber-300"></i> ${s.promoBadge || DEFAULT_SETTINGS.promoBadge}`;
+            document.getElementById('display-promo-headline').textContent = s.promoHeadline || DEFAULT_SETTINGS.promoHeadline;
+            document.getElementById('display-promo-subtext').textContent = s.promoSubtext || DEFAULT_SETTINGS.promoSubtext;
+
+            const promoBox = document.getElementById('promo-banner-box');
+            const promoOverlay = document.getElementById('promo-banner-overlay');
+            if (s.promoImage) {
+                promoBox.style.backgroundImage = `url('${s.promoImage}')`;
+                promoOverlay.classList.remove('hidden');
+            } else {
+                promoBox.style.backgroundImage = 'none';
+                promoOverlay.classList.add('hidden');
+            }
+
+            const defaultLogo = s.logoUrl || "1000005925_3.png";
+            const logoHtml = `<img src="${defaultLogo}" alt="${s.companyName}" class="w-full h-full object-contain crisp-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/0f172a/38bdf8?text=Hamza+AC';">`;
+            document.getElementById('header-logo-container').innerHTML = logoHtml;
+            document.getElementById('footer-logo-container').innerHTML = logoHtml;
+
+            const cleanPhone = (s.phone || '01955255725').replace(/[^0-9+]/g, '');
+            const waNumber = cleanPhone.startsWith('88') ? cleanPhone : '88' + cleanPhone;
+            document.getElementById('quick-call-btn').href = `tel:${cleanPhone}`;
+            document.getElementById('quick-whatsapp-btn').href = `https://wa.me/${waNumber}`;
+            document.getElementById('footer-phone-link').href = `tel:${cleanPhone}`;
+            document.getElementById('footer-phone-text').textContent = s.phone;
+
+            document.getElementById('footer-email-link').href = `mailto:${s.email}`;
+            document.getElementById('footer-email-text').textContent = s.email;
+            document.getElementById('footer-address-text').textContent = s.address;
+
+            document.getElementById('footer-fb-link').href = s.facebook || '#';
+            document.getElementById('footer-ig-link').href = s.instagram || '#';
+            document.getElementById('footer-yt-link').href = s.youtube || '#';
+
+            document.getElementById('set-company-name').value = s.companyName;
+            document.getElementById('set-warranty-text').value = s.warrantyText || "১৫ দিনের সার্ভিস ওয়ারেন্টি";
+            document.getElementById('set-company-slogan').value = s.companySlogan;
+            document.getElementById('set-service-areas').value = s.serviceAreas || DEFAULT_SETTINGS.serviceAreas;
+            document.getElementById('set-promo-badge').value = s.promoBadge || DEFAULT_SETTINGS.promoBadge;
+            document.getElementById('set-promo-headline').value = s.promoHeadline || DEFAULT_SETTINGS.promoHeadline;
+            document.getElementById('set-promo-subtext').value = s.promoSubtext || DEFAULT_SETTINGS.promoSubtext;
+            document.getElementById('set-promo-image').value = s.promoImage || '';
+            if (s.promoImage) document.getElementById('set-promo-img-preview').src = s.promoImage;
+
+            document.getElementById('set-logo-url').value = s.logoUrl || '';
+            if (s.logoUrl) document.getElementById('set-logo-preview').src = s.logoUrl;
+            document.getElementById('set-phone').value = s.phone;
+            document.getElementById('set-email').value = s.email;
+            document.getElementById('set-address').value = s.address;
+            document.getElementById('set-fb').value = s.facebook || '';
+            document.getElementById('set-ig').value = s.instagram || '';
+            document.getElementById('set-yt').value = s.youtube || '';
+
+            document.getElementById('set-primary-color').value = s.primaryColor || '#0284c7';
+            document.getElementById('set-header-bg').value = s.headerBg || '#0f172a';
+            document.getElementById('set-promo-bg').value = s.promoBg || '#0369a1';
+            document.getElementById('set-footer-bg').value = s.footerBg || '#0f172a';
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('square-category-grid');
+            const strip = document.getElementById('horizontal-category-strip');
+            const srvSelect = document.getElementById('srv-category');
+
+            const allCatCard = {
+                id: "ALL",
+                name: "সব সার্ভিস",
+                icon: "fa-border-all",
+                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=400&q=80"
+            };
+
+            const items = [...state.categories, allCatCard];
+
+            grid.innerHTML = items.map(cat => {
+                const targetVal = cat.id === "ALL" ? "ALL" : cat.name;
+                const isActive = state.selectedCategory === targetVal;
+                const fallback = `https://placehold.co/200x200/0284c7/ffffff?text=${encodeURIComponent(cat.name)}`;
+
+                return `
+                    <button onclick="selectCategory('${targetVal}')" 
+                        class="group aspect-square rounded-2xl p-2 flex flex-col items-center justify-between border-2 transition-all shadow-sm overflow-hidden ${
+                            isActive 
+                            ? 'theme-primary-bg text-white border-sky-300 shadow-md scale-[1.03]' 
+                            : 'bg-white text-slate-800 border-slate-200 hover:border-sky-400'
+                        }">
+                        <div class="w-full h-[64%] rounded-xl overflow-hidden bg-slate-100 relative">
+                            <img src="${cat.image || fallback}" alt="${cat.name}" 
+                                onerror="this.onerror=null;this.src='${fallback}';"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <span class="text-[11px] sm:text-xs font-bold text-center leading-tight line-clamp-2 pt-1">
+                            ${cat.name}
+                        </span>
+                    </button>
+                `;
+            }).join('');
+
+            if (strip) {
+                const stripItems = [allCatCard, ...state.categories];
+                strip.innerHTML = stripItems.map(cat => {
+                    const targetVal = cat.id === "ALL" ? "ALL" : cat.name;
+                    const isActive = state.selectedCategory === targetVal;
+                    return `
+                        <button onclick="selectCategory('${targetVal}')" 
+                            class="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border transition ${
+                                isActive 
+                                ? 'theme-primary-bg text-white border-transparent shadow-sm' 
+                                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                            }">
+                            <i class="fa-solid ${cat.icon || 'fa-snowflake'}"></i>
+                            <span>${cat.name}</span>
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            if (srvSelect) {
+                srvSelect.innerHTML = state.categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            }
+        }
+
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            const emptyState = document.getElementById('empty-services-state');
+            const titleEl = document.getElementById('current-category-title');
+            const subEl = document.getElementById('service-count-subtitle');
+
+            let filtered = [...state.services];
+            if (state.selectedCategory !== "ALL") {
+                filtered = filtered.filter(s => s.category === state.selectedCategory);
+                titleEl.textContent = state.selectedCategory;
+            } else {
+                titleEl.textContent = "সকল সার্ভিস সমূহ";
+            }
+
+            if (state.searchQuery.trim() !== "") {
+                const q = state.searchQuery.toLowerCase();
+                filtered = filtered.filter(s => 
+                    s.name.toLowerCase().includes(q) || 
+                    (s.description && s.description.toLowerCase().includes(q)) ||
+                    (s.category && s.category.toLowerCase().includes(q))
+                );
+            }
+
+            subEl.textContent = `${filtered.length}টি সার্ভিস পাওয়া যাচ্ছে`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(srv => {
+                const discount = srv.oldPrice > srv.newPrice 
+                    ? Math.round(((srv.oldPrice - srv.newPrice) / srv.oldPrice) * 100) 
+                    : 0;
+                const fallbackImg = `https://placehold.co/600x400/0284c7/ffffff?text=${encodeURIComponent(srv.name)}`;
+
+                return `
+                    <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm card-hover flex flex-col">
+                        <div class="relative h-48 bg-slate-100 overflow-hidden">
+                            <img src="${srv.image || fallbackImg}" alt="${srv.name}" 
+                                onerror="this.onerror=null;this.src='${fallbackImg}';"
+                                class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full">
+                                ${srv.category}
+                            </span>
+                            ${discount > 0 ? `<span class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">${discount}% ছাড়</span>` : ''}
+                        </div>
+
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-base sm:text-lg leading-snug">
+                                    ${srv.name}
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1 mb-2.5 line-clamp-1" title="${srv.description || ''}">
+                                    ${srv.description || 'দক্ষ টেকনিশিয়ান দ্বারা নির্ভরযোগ্য ও মানসম্মত সার্ভিস।'}
+                                </p>
+                                <div class="flex items-baseline gap-2.5 mb-3.5">
+                                    <span class="text-xl font-extrabold theme-primary-text">৳${srv.newPrice}</span>
+                                    ${srv.oldPrice > srv.newPrice ? `<span class="text-sm text-slate-400 line-through font-medium">৳${srv.oldPrice}</span>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2.5 pt-2.5 border-t border-slate-100">
+                                <button onclick="bookSingleService('${srv.id}')" class="py-2.5 px-3 rounded-xl theme-primary-bg text-white font-bold text-xs sm:text-sm hover:opacity-95 active:scale-95 transition flex items-center justify-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                    <span>সার্ভিস বুক</span>
+                                </button>
+                                <button onclick="addToCart('${srv.id}')" class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm active:scale-95 transition flex items-center justify-center gap-1.5 border border-slate-200">
+                                    <i class="fa-solid fa-cart-plus theme-primary-text"></i>
+                                    <span>অর্ডার এড</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAll() {
+            applySettingsToUI();
+            renderCategories();
+            renderServices();
+            updateCartUI();
+            syncOrderCounters();
+        }
+
+        window.selectCategory = function(catName) {
+            state.selectedCategory = catName;
+            renderCategories();
+            renderServices();
+            const srvSec = document.getElementById('services-section');
+            if (srvSec) {
+                srvSec.scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+
+        window.handleSearch = function(val) {
+            state.searchQuery = val;
+            document.getElementById('clear-search-btn').classList.toggle('hidden', val.trim() === '');
+            renderServices();
+        };
+
+        window.clearSearch = function() {
+            state.searchQuery = '';
+            document.getElementById('service-search-input').value = '';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            renderServices();
+        };
+
+        window.resetFilters = function() {
+            state.selectedCategory = 'ALL';
+            clearSearch();
+            renderCategories();
+            renderServices();
+        };
+
+        window.addToCart = function(serviceId) {
+            const srv = state.services.find(s => s.id === serviceId);
+            if (!srv) return;
+
+            const existing = state.cart.find(item => item.serviceId === serviceId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                state.cart.push({
+                    serviceId: srv.id,
+                    name: srv.name,
+                    price: Number(srv.newPrice),
+                    qty: 1
+                });
+            }
+            updateCartUI();
+            showToast(`"${srv.name}" অর্ডারে যোগ করা হয়েছে`);
+        };
+
+        window.bookSingleService = function(serviceId) {
+            const srv = state.services.find(s => s.id === serviceId);
+            if (!srv) return;
+
+            const existing = state.cart.find(item => item.serviceId === serviceId);
+            if (!existing) {
+                state.cart.push({
+                    serviceId: srv.id,
+                    name: srv.name,
+                    price: Number(srv.newPrice),
+                    qty: 1
+                });
+            }
+            updateCartUI();
+            openBookingModal();
+        };
+
+        window.changeCartQty = function(serviceId, delta) {
+            const idx = state.cart.findIndex(item => item.serviceId === serviceId);
+            if (idx === -1) return;
+
+            state.cart[idx].qty += delta;
+            if (state.cart[idx].qty <= 0) {
+                state.cart.splice(idx, 1);
+            }
+            updateCartUI();
+            renderBookingCartItems();
+        };
+
+        function updateCartUI() {
+            const totalQty = state.cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            const headerBadge = document.getElementById('header-cart-badge');
+            const floatingBar = document.getElementById('floating-cart-bar');
+
+            if (totalQty > 0) {
+                headerBadge.textContent = totalQty;
+                headerBadge.classList.remove('hidden');
+                floatingBar.classList.remove('hidden');
+                document.getElementById('floating-cart-count').textContent = totalQty;
+                document.getElementById('floating-cart-total').textContent = totalPrice;
+            } else {
+                headerBadge.classList.add('hidden');
+                floatingBar.classList.add('hidden');
+            }
+        }
+
+        function renderBookingCartItems() {
+            const container = document.getElementById('booking-cart-items');
+            const totalEl = document.getElementById('booking-grand-total');
+
+            if (state.cart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-rose-500 font-semibold py-2 text-center">কোনো সার্ভিস সিলেক্ট করা হয়নি!</p>`;
+                totalEl.textContent = "0";
+                return;
+            }
+
+            let grandTotal = 0;
+            container.innerHTML = state.cart.map(item => {
+                const sub = item.price * item.qty;
+                grandTotal += sub;
+                return `
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 gap-2">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs sm:text-sm font-bold text-slate-800 truncate">${item.name}</p>
+                            <p class="text-xs text-slate-500">৳${item.price} × ${item.qty} = <span class="font-bold text-slate-700">৳${sub}</span></p>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button type="button" onclick="changeCartQty('${item.serviceId}', -1)" class="w-7 h-7 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold flex items-center justify-center transition">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span class="w-6 text-center text-sm font-bold text-slate-800">${item.qty}</span>
+                            <button type="button" onclick="changeCartQty('${item.serviceId}', 1)" class="w-7 h-7 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-bold flex items-center justify-center transition">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.textContent = grandTotal;
+        }
+
+        window.openBookingModal = function() {
+            if (state.cart.length === 0 && state.services.length > 0) {
+                addToCart(state.services[0].id);
+            }
+            const dateInput = document.getElementById('cust-date');
+            if (!dateInput.value) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+                dateInput.min = today;
+            }
+            renderBookingCartItems();
+            document.getElementById('booking-modal').classList.remove('hidden');
+        };
+
+        window.closeBookingModal = function() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        };
+
+        window.submitCustomerOrder = async function(e) {
+            e.preventDefault();
+            if (state.cart.length === 0) {
+                showToast("দয়া করে অন্তত একটি সার্ভিস সিলেক্ট করুন!");
+                return;
+            }
+
+            const btn = document.getElementById('submit-order-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> অর্ডার পাঠানো হচ্ছে...`;
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const date = document.getElementById('cust-date').value;
+            const time = document.getElementById('cust-time').value;
+            const problemNote = document.getElementById('cust-problem-note').value.trim();
+            const problemPhoto = state.customerProblemPhoto || "";
+            const totalAmount = state.cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+            const orderData = {
+                customerName: name,
+                customerPhone: phone,
+                customerAddress: address,
+                scheduleDate: date,
+                scheduleTime: time,
+                problemNote: problemNote,
+                problemPhoto: problemPhoto,
+                items: JSON.parse(JSON.stringify(state.cart)),
+                totalAmount: totalAmount,
+                status: "Pending",
+                createdAt: Date.now()
+            };
+
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'orders'), orderData);
+                } else {
+                    state.orders.unshift({ id: 'local_' + Date.now(), ...orderData });
+                    syncOrderCounters();
+                    if (state.isAdminLoggedIn) renderAdminOrders();
+                }
+
+                const itemsText = orderData.items.map(i => `• ${i.name} (${i.qty}টি) - ৳${i.price * i.qty}`).join('<br>');
+                document.getElementById('receipt-summary-box').innerHTML = `
+                    <p><strong>নাম:</strong> ${name}</p>
+                    <p><strong>ফোন:</strong> ${phone}</p>
+                    <p><strong>ঠিকানা:</strong> ${address}</p>
+                    <p><strong>সিডিউল:</strong> ${date} | ${time}</p>
+                    ${problemNote ? `<p><strong>সমস্যার বিবরণ:</strong> ${problemNote}</p>` : ''}
+                    <div class="pt-1 border-t border-slate-200 mt-1"><strong>সার্ভিস সমূহ:</strong><br>${itemsText}</div>
+                    <p class="pt-1 font-bold text-emerald-700 text-base">মোট বিল: ৳${totalAmount}</p>
+                `;
+
+                const cleanPhone = (state.settings.phone || '01955255725').replace(/[^0-9]/g, '');
+                const waNumber = cleanPhone.startsWith('88') ? cleanPhone : '88' + cleanPhone;
+                const waMsg = encodeURIComponent(
+                    `নতুন সার্ভিস বুকিং - ${state.settings.companyName}\n` +
+                    `নাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n` +
+                    `তারিখ ও সময়: ${date} (${time})\n` +
+                    (problemNote ? `সমস্যার বিবরণ: ${problemNote}\n` : '') +
+                    `সার্ভিস:\n` + orderData.items.map(i => `- ${i.name} x${i.qty} = ৳${i.price * i.qty}`).join('\n') +
+                    `\nমোট বিল: ৳${totalAmount}`
+                );
+                document.getElementById('receipt-whatsapp-btn').href = `https://wa.me/${waNumber}?text=${waMsg}`;
+
+                state.cart = [];
+                clearCustomerProblemPhoto();
+                updateCartUI();
+                document.getElementById('booking-form').reset();
+                closeBookingModal();
+                document.getElementById('receipt-modal').classList.remove('hidden');
+
+            } catch (err) {
+                showToast("অর্ডার পাঠাতে সমস্যা হয়েছে, আবার চেষ্টা করুন।");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span>সার্ভিস বুকিং কনফার্ম করুন</span>`;
+            }
+        };
+
+        window.closeReceiptModal = function() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        };
+
+        window.openAdminModal = function(tabName = 'orders') {
+            if (!state.isAdminLoggedIn) return;
+            document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+            switchAdminTab(tabName);
+            renderAdminOrders();
+            renderAdminServices();
+            renderAdminCategories();
+        };
+
+        window.closeAdminModal = function() {
+            document.getElementById('admin-dashboard-modal').classList.add('hidden');
+        };
+
+        window.switchAdminTab = function(tabName) {
+            ['orders', 'services', 'categories', 'banner_footer', 'security'].forEach(t => {
+                document.getElementById(`admin-tab-${t}`).classList.toggle('hidden', t !== tabName);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabName) {
+                    btn.classList.add('border-sky-600', 'text-sky-700', 'bg-white');
+                    btn.classList.remove('border-transparent', 'text-slate-600');
+                } else {
+                    btn.classList.remove('border-sky-600', 'text-sky-700', 'bg-white');
+                    btn.classList.add('border-transparent', 'text-slate-600');
+                }
+            });
+        };
+
+        function renderAdminOrders() {
+            const container = document.getElementById('admin-orders-list');
+            if (state.orders.length === 0) {
+                container.innerHTML = `<div class="bg-white p-8 rounded-2xl border text-center text-slate-500 text-sm">এখনো কোনো অর্ডার আসেনি।</div>`;
+                return;
+            }
+
+            container.innerHTML = state.orders.map(order => {
+                const statusColors = {
+                    "Pending": "bg-amber-100 text-amber-800 border-amber-200",
+                    "Confirmed": "bg-sky-100 text-sky-800 border-sky-200",
+                    "Completed": "bg-emerald-100 text-emerald-800 border-emerald-200"
+                };
+                const badgeClass = statusColors[order.status] || statusColors["Pending"];
+                const itemsHtml = (order.items || []).map(i => `<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium mr-1 mb-1">${i.name} (×${i.qty})</span>`).join('');
+
+                return `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                        <div class="flex flex-wrap items-start justify-between gap-2">
+                            <div>
+                                <h5 class="font-bold text-slate-800 text-base">${order.customerName}</h5>
+                                <p class="text-xs text-slate-500"><i class="fa-solid fa-phone mr-1"></i> ${order.customerPhone} | <i class="fa-solid fa-location-dot mr-1"></i> ${order.customerAddress}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold border ${badgeClass}">${order.status || 'Pending'}</span>
+                        </div>
+                        
+                        <div class="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100 space-y-1.5">
+                            <p><strong>সিডিউল:</strong> ${order.scheduleDate} — <span class="text-sky-700 font-semibold">${order.scheduleTime}</span></p>
+                            <div><strong>সার্ভিস সমূহ:</strong> ${itemsHtml}</div>
+                            ${order.problemNote ? `<p class="bg-amber-50 text-amber-900 p-2 rounded-lg border border-amber-200"><strong>সমস্যার বিবরণ:</strong> ${order.problemNote}</p>` : ''}
+                            ${order.problemPhoto ? `
+                                <div class="pt-1">
+                                    <p class="font-semibold mb-1">সংযুক্ত ছবি:</p>
+                                    <img src="${order.problemPhoto}" alt="Customer Problem" class="w-28 h-28 object-cover rounded-xl border border-slate-300 shadow-sm">
+                                </div>
+                            ` : ''}
+                            <p class="pt-1 font-bold text-sm text-emerald-700">মোট বিল: ৳${order.totalAmount}</p>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                            <div class="flex items-center gap-1.5">
+                                <a href="tel:${order.customerPhone}" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700">
+                                    <i class="fa-solid fa-phone"></i> কল
+                                </a>
+                                <button onclick="updateOrderStatus('${order.id}', 'Confirmed')" class="px-2.5 py-1.5 rounded-lg bg-sky-100 text-sky-800 text-xs font-semibold hover:bg-sky-200">
+                                    কনফার্ম
+                                </button>
+                                <button onclick="updateOrderStatus('${order.id}', 'Completed')" class="px-2.5 py-1.5 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-semibold hover:bg-emerald-200">
+                                    সম্পন্ন
+                                </button>
+                            </div>
+                            <button onclick="deleteOrder('${order.id}')" class="text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1">
+                                <i class="fa-solid fa-trash"></i> ডিলিট
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.updateOrderStatus = async function(orderId, newStatus) {
+            try {
+                if (db && currentUser) {
+                    await updateDoc(doc(db, 'orders', orderId), { status: newStatus });
+                } else {
+                    const ord = state.orders.find(o => o.id === orderId);
+                    if (ord) ord.status = newStatus;
+                    renderAdminOrders();
+                }
+                showToast(`স্ট্যাটাস "${newStatus}" আপডেট হয়েছে`);
+            } catch (err) {}
+        };
+
+        window.deleteOrder = async function(orderId) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'orders', orderId));
+                } else {
+                    state.orders = state.orders.filter(o => o.id !== orderId);
+                    syncOrderCounters();
+                    renderAdminOrders();
+                }
+                showToast("অর্ডার ডিলিট করা হয়েছে");
+            } catch (err) {}
+        };
+
+        function renderAdminServices() {
+            const container = document.getElementById('admin-services-list');
+            container.innerHTML = state.services.map((srv, idx) => `
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img src="${srv.image || 'https://placehold.co/80x80'}" alt="" class="w-12 h-12 rounded-xl object-cover border shrink-0 bg-slate-100">
+                        <div class="min-w-0">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700">${srv.category}</span>
+                            <h5 class="font-bold text-sm text-slate-800 truncate mt-0.5">${srv.name}</h5>
+                            <p class="text-[11px] text-slate-500 truncate">${srv.description || ''}</p>
+                            <p class="text-xs text-slate-600">আগের: ৳${srv.oldPrice} | নতুন: <strong class="text-emerald-600">৳${srv.newPrice}</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-1 shrink-0">
+                        <button onclick="moveServiceOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="উপরে নিন"
+                            class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:opacity-30 text-slate-700 text-xs">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                        <button onclick="moveServiceOrder(${idx}, 1)" ${idx === state.services.length - 1 ? 'disabled' : ''} title="নিচে নামান"
+                            class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:opacity-30 text-slate-700 text-xs">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                        <button onclick="editServiceForm('${srv.id}')" title="এডিট" class="p-2 rounded-lg bg-amber-100 text-amber-800 hover:bg-amber-200 text-xs">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteServiceItem('${srv.id}')" title="ডিলিট" class="p-2 rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 text-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.moveServiceOrder = async function(index, direction) {
+            const targetIndex = index + direction;
+            if (targetIndex < 0 || targetIndex >= state.services.length) return;
+
+            const list = [...state.services];
+            const temp = list[index];
+            list[index] = list[targetIndex];
+            list[targetIndex] = temp;
+
+            list.forEach((item, i) => { item.orderIndex = i + 1; });
+            state.services = list;
+            renderServices();
+            renderAdminServices();
+
+            try {
+                if (db && currentUser) {
+                    await Promise.all([
+                        updateDoc(doc(db, 'services', list[index].id), { orderIndex: list[index].orderIndex }),
+                        updateDoc(doc(db, 'services', list[targetIndex].id), { orderIndex: list[targetIndex].orderIndex })
+                    ]);
+                }
+                showToast("সিরিয়াল পরিবর্তন হয়েছে!");
+            } catch (err) {}
+        };
+
+        window.editServiceForm = function(id) {
+            const srv = state.services.find(s => s.id === id);
+            if (!srv) return;
+            document.getElementById('edit-service-id').value = srv.id;
+            document.getElementById('srv-name').value = srv.name;
+            document.getElementById('srv-category').value = srv.category;
+            document.getElementById('srv-desc').value = srv.description || '';
+            document.getElementById('srv-old-price').value = srv.oldPrice;
+            document.getElementById('srv-new-price').value = srv.newPrice;
+            document.getElementById('srv-image').value = srv.image || '';
+            if (srv.image) document.getElementById('srv-image-preview').src = srv.image;
+            document.getElementById('service-form-title').innerHTML = `<i class="fa-solid fa-pen text-amber-500"></i> সার্ভিস এডিট করুন`;
+            document.getElementById('admin-service-form').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.resetServiceForm = function() {
+            document.getElementById('admin-service-form').reset();
+            document.getElementById('edit-service-id').value = '';
+            document.getElementById('srv-image-preview').src = 'https://placehold.co/100x80/e2e8f0/64748b?text=Preview';
+            document.getElementById('service-form-title').innerHTML = `<i class="fa-solid fa-circle-plus theme-primary-text"></i> নতুন সার্ভিস যোগ বা এডিট করুন`;
+        };
+
+        window.saveServiceItem = async function(e) {
+            e.preventDefault();
+            const existingId = document.getElementById('edit-service-id').value;
+            const id = existingId || ('srv_' + Date.now());
+            const existingSrv = state.services.find(s => s.id === existingId);
+
+            const payload = {
+                orderIndex: existingSrv ? (existingSrv.orderIndex ?? state.services.length + 1) : (state.services.length + 1),
+                name: document.getElementById('srv-name').value.trim(),
+                category: document.getElementById('srv-category').value,
+                description: document.getElementById('srv-desc').value.trim(),
+                oldPrice: Number(document.getElementById('srv-old-price').value),
+                newPrice: Number(document.getElementById('srv-new-price').value),
+                image: document.getElementById('srv-image').value.trim()
+            };
+
+            try {
+                if (db && currentUser) {
+                    await setDoc(doc(db, 'services', id), payload);
+                } else {
+                    const idx = state.services.findIndex(s => s.id === id);
+                    if (idx >= 0) state.services[idx] = { id, ...payload };
+                    else state.services.push({ id, ...payload });
+                    renderServices();
+                    renderAdminServices();
+                }
+                resetServiceForm();
+                showToast("সার্ভিস সফলভাবে সেভ হয়েছে!");
+            } catch (err) {
+                showToast("সেভ করতে সমস্যা হয়েছে");
+            }
+        };
+
+        window.deleteServiceItem = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'services', id));
+                } else {
+                    state.services = state.services.filter(s => s.id !== id);
+                    renderServices();
+                    renderAdminServices();
+                }
+                showToast("সার্ভিস ডিলিট করা হয়েছে");
+            } catch (err) {}
+        };
+
+        function renderAdminCategories() {
+            const container = document.getElementById('admin-categories-list');
+            container.innerHTML = state.categories.map(cat => `
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <img src="${cat.image || 'https://placehold.co/80x80'}" alt="" class="w-11 h-11 rounded-xl object-cover border shrink-0 bg-slate-100">
+                        <span class="font-bold text-sm text-slate-800 truncate">${cat.name}</span>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <button onclick="editCategoryForm('${cat.id}')" class="p-2 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 text-xs">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteCategoryItem('${cat.id}')" class="p-2 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editCategoryForm = function(id) {
+            const cat = state.categories.find(c => c.id === id);
+            if (!cat) return;
+            document.getElementById('edit-cat-id').value = cat.id;
+            document.getElementById('cat-name').value = cat.name;
+            document.getElementById('cat-icon').value = cat.icon || 'fa-snowflake';
+            document.getElementById('cat-image').value = cat.image || '';
+            if (cat.image) document.getElementById('cat-image-preview').src = cat.image;
+        };
+
+        window.resetCategoryForm = function() {
+            document.getElementById('edit-cat-id').value = '';
+            document.getElementById('cat-name').value = '';
+            document.getElementById('cat-image').value = '';
+            document.getElementById('cat-image-preview').src = 'https://placehold.co/100x100/e2e8f0/64748b?text=Category';
+        };
+
+        window.saveCategoryItem = async function(e) {
+            e.preventDefault();
+            const existingId = document.getElementById('edit-cat-id').value;
+            const id = existingId || ('cat_' + Date.now());
+            const payload = {
+                name: document.getElementById('cat-name').value.trim(),
+                icon: document.getElementById('cat-icon').value,
+                image: document.getElementById('cat-image').value.trim()
+            };
+
+            try {
+                if (db && currentUser) {
+                    await setDoc(doc(db, 'categories', id), payload);
+                } else {
+                    const idx = state.categories.findIndex(c => c.id === id);
+                    if (idx >= 0) state.categories[idx] = { id, ...payload };
+                    else state.categories.push({ id, ...payload });
+                    renderCategories();
+                    renderAdminCategories();
+                }
+                resetCategoryForm();
+                showToast("ক্যাটাগরি সেভ হয়েছে!");
+            } catch (err) {}
+        };
+
+        window.deleteCategoryItem = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'categories', id));
+                } else {
+                    state.categories = state.categories.filter(c => c.id !== id);
+                    renderCategories();
+                    renderAdminCategories();
+                }
+                showToast("ক্যাটাগরি ডিলিট করা হয়েছে");
+            } catch (err) {}
+        };
+
+        window.saveCompanySettings = async function(e) {
+            e.preventDefault();
+            const updated = {
+                ...state.settings,
+                companyName: document.getElementById('set-company-name').value.trim(),
+                warrantyText: document.getElementById('set-warranty-text').value.trim(),
+                companySlogan: document.getElementById('set-company-slogan').value.trim(),
+                serviceAreas: document.getElementById('set-service-areas').value.trim(),
+                promoBadge: document.getElementById('set-promo-badge').value.trim(),
+                promoHeadline: document.getElementById('set-promo-headline').value.trim(),
+                promoSubtext: document.getElementById('set-promo-subtext').value.trim(),
+                promoImage: document.getElementById('set-promo-image').value.trim(),
+                logoUrl: document.getElementById('set-logo-url').value.trim(),
+                phone: document.getElementById('set-phone').value.trim(),
+                email: document.getElementById('set-email').value.trim(),
+                address: document.getElementById('set-address').value.trim(),
+                facebook: document.getElementById('set-fb').value.trim(),
+                instagram: document.getElementById('set-ig').value.trim(),
+                youtube: document.getElementById('set-yt').value.trim(),
+                primaryColor: document.getElementById('set-primary-color').value,
+                headerBg: document.getElementById('set-header-bg').value,
+                promoBg: document.getElementById('set-promo-bg').value,
+                footerBg: document.getElementById('set-footer-bg').value
+            };
+
+            try {
+                if (db && currentUser) {
+                    await setDoc(doc(db, 'config', 'main_settings'), updated);
+                } else {
+                    state.settings = updated;
+                    applySettingsToUI();
+                }
+                showToast("লোগো, ব্যানার, ফুটার ও কালার সেভ হয়েছে!");
+            } catch (err) {
+                showToast("সেভ করতে সমস্যা হয়েছে");
+            }
+        };
+
+        let toastTimer;
+        window.showToast = function(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+            renderAll();
+            initFirebase();
+        });
+    </script>
+</body>
+</html>
